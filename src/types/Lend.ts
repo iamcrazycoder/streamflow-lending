@@ -2,6 +2,7 @@ import { Loan, Token, Tx, User } from '@prisma/client'
 import { Mint } from '@solana/spl-token'
 import { PublicKey } from '@solana/web3.js'
 import BigNumber from 'bignumber.js'
+import { GetTokenInfoResponse } from './TokenManager'
 import { TransferTokenResponse } from './Transaction'
 
 interface DisburseLoanArgs {
@@ -20,7 +21,7 @@ interface IsUserEligibleArgs {
 
 interface CheckOutstandingAmountArgs {
     loans: Loan[]
-    tokenInfo: Mint
+    tokenInfo: GetTokenInfoResponse
     amount: BigNumber
 }
 
