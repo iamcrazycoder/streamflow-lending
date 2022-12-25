@@ -7,9 +7,9 @@ import { getBN, validateSolanaAddress } from '../utils'
 
 const router = Router()
 
-router.get('/request-loan', async (req, res) => {
+router.post('/request-loan', async (req, res) => {
     try {
-        const requestBody = req.query
+        const requestBody = req.body
 
         if (
             !requestBody.userAddress ||
