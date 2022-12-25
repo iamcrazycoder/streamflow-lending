@@ -57,6 +57,10 @@ class Lend extends TokenManager {
             amount,
         })
 
+        if (amount.isZero() || amount.isNegative()) {
+            throw new Error(errors.INVALID_AMOUNT)
+        }
+
         const [userTokenATA, loan] = await Promise.all([
             this.createUserTokenATA({
                 mintAddress,

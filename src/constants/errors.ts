@@ -2,6 +2,7 @@ const errors = {
     INVALID_REQUEST: 'Invalid request',
     DEFINE_AUTHORITY: 'Error: define TOP_AUTHORITY (keypair of admin) in .env',
     UNAUTHORIZED: 'Unauthorized request',
+    INVALID_AMOUNT: 'Invalid amount',
     INVALID_TOKEN_MINT: 'Invalid token mint/address',
     INVALID_TOKEN_DECIMALS: 'Invalid token decimals',
     MAX_SUPPLY: 'Token supply exceeds the maximum allowed limit',
