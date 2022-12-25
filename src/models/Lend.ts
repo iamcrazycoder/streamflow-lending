@@ -1,9 +1,7 @@
 import { Loan } from '@prisma/client'
-import { getMint } from '@solana/spl-token'
 import { PublicKey } from '@solana/web3.js'
 import BigNumber from 'bignumber.js'
 import prisma from '../../prisma'
-import connection from '../config/solana-connection'
 import { MAX_ACTIVE_LOANS, MAX_PERCENT_OF_SUPPLY_IN_LOAN } from '../constants'
 import errors from '../constants/errors'
 import {
@@ -93,7 +91,7 @@ class Lend extends TokenManager {
     }: IsUserEligibleArgs): Promise<void> {
         const [loans, tokenInfo] = await Promise.all([
             this.getOutstandingLoans({ mintAddress }) as Promise<Loan[]>,
-            getMint(connection, mintAddress),
+            TokenManager.getTokenInfo(mintAddress),
         ])
 
         // check if user is authority
@@ -132,12 +130,12 @@ class Lend extends TokenManager {
     }: CheckOutstandingAmountArgs): Promise<void> {
         const outstandingAmount = await this.getTotalOutstandingAmount({
             loans,
-            mintAddress: tokenInfo.address,
+            mintAddress: tokenInfo.onChainInfo.address,
         })
         const percOfMaxSupply = getPercentOfMaxSupply(
             outstandingAmount.plus(amount),
             tokenInfo.decimals,
-            tokenInfo.supply.toString()
+            tokenInfo.onChainInfo.supply.toString()
         )
 
         if (percOfMaxSupply > MAX_PERCENT_OF_SUPPLY_IN_LOAN) {

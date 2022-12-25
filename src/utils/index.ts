@@ -2,6 +2,7 @@ import { Keypair, PublicKey } from '@solana/web3.js'
 import BigNumber from 'bignumber.js'
 import base58 from 'bs58'
 import { MAX_TOKEN_SUPPLY } from '../constants'
+import errors from '../constants/errors'
 
 export const getTokenMaxSupply = (decimals: number): BigNumber =>
     getBN(MAX_TOKEN_SUPPLY, decimals)
@@ -45,6 +46,6 @@ export const validateSolanaAddress = (address: string) => {
             throw 'invalid'
         }
     } catch (error) {
-        throw new Error('Invalid Solana address')
+        throw new Error(errors.INVALID_SOL_ADDRESS)
     }
 }

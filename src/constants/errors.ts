@@ -1,4 +1,5 @@
 const errors = {
+    INVALID_SOL_ADDRESS: 'Invalid Solana address',
     INVALID_REQUEST: 'Invalid request',
     DEFINE_AUTHORITY: 'Error: define TOP_AUTHORITY (keypair of admin) in .env',
     UNAUTHORIZED: 'Unauthorized request',

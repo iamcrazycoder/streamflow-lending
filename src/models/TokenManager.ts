@@ -101,7 +101,7 @@ class TokenManager extends Authority {
             },
         })
 
-        if (!offChainTokenInfo) {
+        if (!offChainTokenInfo || !onChainInfo) {
             throw new Error(errors.INVALID_TOKEN_MINT)
         }
 
