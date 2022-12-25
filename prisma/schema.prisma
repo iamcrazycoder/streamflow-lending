@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Authority {
+  id        Int      @id @default(autoincrement())
+  publicKey String   @unique @db.VarChar(44)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tokens Token[]
+}
+
+model Token {
+  id          Int      @id @default(autoincrement())
+  address     String   @unique @db.VarChar(44)
+  decimals    Int
+  name        String   @db.VarChar(25)
+  logoURL     String?
+  authorityId Int
+  ataAddress  String   @db.VarChar(44)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  authority Authority @relation(fields: [authorityId], references: [id])
+  loans     Loan[]
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  walletAddress String   @unique @db.VarChar(44) // address length varies from 32-44 chars
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  loans Loan[]
+}
+
+model Loan {
+  id        Int      @id @default(autoincrement())
+  tokenId   Int
+  userId    Int
+  amount    BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  token Token @relation(fields: [tokenId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+  txs   Tx[]
+}
+
+enum TxType {
+  PAYMENT // Loan payment
+  REPAYMENT // Repayment
+}
+
+model Tx {
+  id        Int      @id @default(autoincrement())
+  loanId    Int
+  mode      TxType
+  txId      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  loan Loan @relation(fields: [loanId], references: [id])
+}

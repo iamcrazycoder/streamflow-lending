@@ -1,0 +1,35 @@
+-- CreateEnum
+CREATE TYPE "TxType" AS ENUM ('PAYMENT', 'REPAYMENT');
+
+-- CreateTable
+CREATE TABLE "Loan" (
+    "id" SERIAL NOT NULL,
+    "tokenId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "amount" BIGINT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Loan_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tx" (
+    "id" SERIAL NOT NULL,
+    "loanId" INTEGER NOT NULL,
+    "mode" "TxType" NOT NULL,
+    "txId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Tx_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Loan" ADD CONSTRAINT "Loan_tokenId_fkey" FOREIGN KEY ("tokenId") REFERENCES "Token"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Loan" ADD CONSTRAINT "Loan_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Tx" ADD CONSTRAINT "Tx_loanId_fkey" FOREIGN KEY ("loanId") REFERENCES "Loan"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
