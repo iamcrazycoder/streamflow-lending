@@ -11,6 +11,9 @@ init()
 
 const app = express()
 
+app.use(express.json())
+app.use(express.urlencoded())
+
 app.get('/', (_req, res) => {
     res.send(
         'Welcome to Streamflow lending! Refer to the API documentation for usage.'
