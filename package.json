@@ -1,0 +1,32 @@
+{
+    "name": "streamflow-lending",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/iamcrazycoder/streamflow-lending.git",
+    "author": "Nishant Ghodke <iamcrazycoder@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/express": "^4.17.15",
+        "prisma": "^4.8.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.4"
+    },
+    "dependencies": {
+        "@prisma/client": "4.8.0",
+        "@solana/spl-token": "^0.3.6",
+        "@solana/web3.js": "^1.70.3",
+        "@types/node": "^18.11.17",
+        "bignumber.js": "^9.1.1",
+        "bs58": "^5.0.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2"
+    },
+    "scripts": {
+        "start": "ts-node src/server.ts",
+        "setup-authority": "ts-node src/scripts/setup-authority.ts",
+        "setup-token": "ts-node src/scripts/setup-token.ts",
+        "generate-kp": "ts-node src/scripts/generate-kp.ts",
+        "disburse-loan": "ts-node src/scripts/disburse-loan.ts",
+        "truncate-db": "ts-node src/scripts/truncate-db.ts"
+    }
+}
