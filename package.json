@@ -27,6 +27,7 @@
     },
     "scripts": {
         "start": "ts-node src/server.ts",
+        "test": "npx jest --detectOpenHandles --forceExit",
         "setup-authority": "ts-node src/scripts/setup-authority.ts",
         "setup-token": "ts-node src/scripts/setup-token.ts",
         "generate-kp": "ts-node src/scripts/generate-kp.ts",
